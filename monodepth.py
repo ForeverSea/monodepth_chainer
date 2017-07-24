@@ -41,8 +41,8 @@ class monodepthUpdater(chainer.training.StandardUpdater):
         img_gradients_x = self.gradient_x(img)
         img_gradients_y = self.gradient_y(img)
 
-        weight_x = F.exp(-F.mean(F.absolute(disp_gradients_x), axis=1, keep_dims=True))
-        weight_y = F.exp(-F.mean(F.absolute(disp_gradients_y), axis=1, keep_dims=True))
+        weight_x = F.exp(-F.mean(F.absolute(img_gradients_x), axis=1, keep_dims=True))
+        weight_y = F.exp(-F.mean(F.absolute(img_gradients_y), axis=1, keep_dims=True))
 
         smoothness_x = disp_gradients_x * weight_x
         smoothness_y = disp_gradients_y * weight_y
